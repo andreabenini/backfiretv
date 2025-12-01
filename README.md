@@ -107,7 +107,7 @@ keys and network URLs. One script, no dependencies, just follow the [installatio
 - **dhcp hook**. Available in the dhcp [`examples/`](./examples/) directory. Configuration is different for each
 daemon. I already included **dnsmasq** because it's a common choice for small lan installations. 
 I'd like to add **djb**, **bind** as well as many others. Feel free to create a PR or ask for it through
-[project issues](./issues)
+[project issues](../../issues)
 - **android launcher toggler**. 1 line (literally) android _.apk_ app. When executed it toggles between
 **custom** and **default** launcher modes. If you want to disable the daemon and perform normal operations
 like: being fed by ADS, install apps, tinker with settings and so on this app switches between launchers.
