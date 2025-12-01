@@ -1,8 +1,8 @@
 <img src="logo.png" align="right" width="128" alt="project logo">
 
-# BackFireTV
+# BackFireTV<br/>&nbsp;<br/>&nbsp;
 
-**Take Back Control of Your Amazon Firestick.**  
+**Take back control of _Your_ Firestick.**  
 Tired of Ads, a cluttered launcher, and buttons you can't change? BackFireTV is
 a project to liberate your Firestick from Amazon's walled garden and make it *truly* yours.  
 They call it the **fire**stick. To fight fire with fire, you need a **backfire**.
@@ -42,6 +42,9 @@ then manages running programs, hacks remote control features and keys. It can be
 resumed, no rooting required.
 
 ### Features
+- **Autosetup on boot**. Always start your custom launcher on boot, it doesn't matter
+if it was previously disabled from remote (or black listed). The daemon takes care of substituting default 
+launcher with yours (linux layer approach).
 - **Custom Launcher**. Automatically replaces the default Amazon launcher with the lean and clean
 [Wolf Launcher](https://www.google.com/search?q=wolf+launcher).
 - **Ad-Free Experience:**. Blocks annoying ads and sponsored content for a cleaner interface.
@@ -62,7 +65,76 @@ kiosk mode once done.
 
 ### Before & After: Reclaim Your Screen
 When it's free I'm fine with Ads. If I'm paying for it (as I did) I'll do whatever I want because it's _mine_.  
+That's what happens automatically at boot without human intervention
 ![Logo](img.comparison.png)
+
+### How It Works
+BackFireTV uses a simple but powerful automated workflow. At its core, it's a "set-and-forget"
+system that ensures your Firestick is always configured the way *you* want it, every time it
+connects to your network.
+```mermaid
+%%{init: { 'sequence': {'mirrorActors': false} } }%%
+sequenceDiagram
+    participant TV as Firestick TV *
+    participant Server as DHCP Server<br/>(ex: dnsmasq)
+    %% Initial condition
+    Note left of TV: backfire.sh loaded
+
+    %% The request
+    TV-->>Server: IP Lease request
+    Server->>TV: IP released
+    
+    %% Hook on server
+    Note right of Server: Executing hook on IP assignment
+
+    %% The Renewal / New Connection (Back and Forth)
+    Server-->>TV: adb: start backfire.sh
+
+    %% Notes on firestick
+    Note left of TV: (  (  loop  script  )  )
+    TV-->>TV:
+    %%Note left of TV: "<div style='text-align: left;'>loop initialization<br/>- check cache<br/>- verify MAC</div>"
+    %% The "loop" keyword creates a box with a LEFT-ALIGNED label
+    Note left of TV:- custom setup      <br/>- tv.launcher killer  <br/>- ads killer             <br/>- remap keys         <br/>- disable (if asked)
+
+```
+
+
+### Getting Started
+
+1. **Prerequisites:**
+    - A DHCP server you can configure, dhcp hooks available. Example: _dnsmasq_.
+    - `adb` installed (android tools package).
+2. **Download the script**: `backfire.sh`
+3. **Copy the script**
+    ```sh
+        # your firestick, the script, the remote path
+        FIRESTICK=yourDevice            # IP address or name, up to you
+        SCRIPT=backfire.sh              # this script, leave it as it is
+        FILEPATH=/data/local/tmp        # Leave it as it is
+
+        # Connect to your device (adb is required, on the device: debugging=on)
+        adb connect $FIRESTICK
+
+        # Download the script, make it executable
+        adb push $SCRIPT $FILEPATH/ && \
+        adb shell chmod 755 $FILEPATH/$SCRIPT
+
+        # If you want to manually test it just:
+        #     "adb shell $FILEPATH/$SCRIPT"
+    ```
+4. **Add your DHCP hook**, there's a provided example for dnsmasq, see
+[examples directory](examples/) for details.
+5. **Set a dhcp lease and reload**, a reserved lease for your devices might help you with a lean
+action-hook. Reload your service once done.
+6. **Install Launcher**. [Wolf Launcher](https://www.google.com/search?q=wolf+launcher).
+Customize it according to your needs.
+7. **Install Launcher Toggler application** (opt). 
+[Launcher Toggler apk available](https://github.com/andreabenini/android/blob/main/projects/adbLauncherToggler/app/release/app-release.apk).
+That's the silliest application ever written !  
+Exactly _1_ Line added in the Activity log, if you want to evaluate sources or recompile it feel free to do so. 
+[Sources](https://github.com/andreabenini/android/blob/main/projects/adbLauncherToggler) are available
+5. **Reboot your Firestick** and watch the magic happen!
 
 ---
 ## Free your Firestick. Reclaim your screen.
