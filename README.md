@@ -1,3 +1,5 @@
+<img src="logo.png" align="right" width="128" alt="project logo">
+
 # BackFireTV
 
 **Take Back Control of Your Amazon Firestick.**  
@@ -11,8 +13,6 @@ policies. We leverage these internal tools to create a "backfire" against the in
 locked ecosystem, transforming your Firestick back into the useful, customizable device it was
 always meant to be.
 
-
-![Logo](logo.png)
 
 ---
 
@@ -63,7 +63,6 @@ kiosk mode once done.
 ### Before & After: Reclaim Your Screen
 When it's free I'm fine with Ads. If I'm paying for it (as I did) I'll do whatever I want because it's _mine_.  
 ![Logo](img.comparison.png)
-
 
 ---
 ## Free your Firestick. Reclaim your screen.
