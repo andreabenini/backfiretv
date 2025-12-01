@@ -100,41 +100,23 @@ sequenceDiagram
 ```
 
 
-### Getting Started
+### Installation
+This solution consists of:
+- **daemon script**. Installed at the linux level, it captures android events, deals with hw, remote control
+keys and network URLs. One script, no dependencies, just follow the [installation procedure](./installation.md)
+- **dhcp hook**. Available in the dhcp [`examples/`](./examples/) directory. Configuration is different for each
+daemon. I already included **dnsmasq** because it's a common choice for small lan installations. 
+I'd like to add **djb**, **bind** as well as many others. Feel free to create a PR or ask for it through
+[project issues](./issues)
+- **android launcher toggler**. 1 line (literally) android _.apk_ app. When executed it toggles between
+**custom** and **default** launcher modes. If you want to disable the daemon and perform normal operations
+like: being fed by ADS, install apps, tinker with settings and so on this app switches between launchers.
+    - [APK binary available](https://github.com/andreabenini/android/blob/main/projects/adbLauncherToggler/app/release/app-release.apk)
+        - Install it with [Downloader](https://www.amazon.com/AFTVnews-com-Downloader/dp/B01N0BP507)
+        - or manually with adb tools, like:
+        `adb -s <ipAddress>:5555 install /path/to/your/app.apk`
+    - [Source code and android studio project](https://github.com/andreabenini/android/tree/main/projects/adbLauncherToggler) available too
 
-1. **Prerequisites:**
-    - A DHCP server you can configure, dhcp hooks available. Example: _dnsmasq_.
-    - `adb` installed (android tools package).
-2. **Download the script**: `backfire.sh`
-3. **Copy the script**
-    ```sh
-        # your firestick, the script, the remote path
-        FIRESTICK=yourDevice            # IP address or name, up to you
-        SCRIPT=backfire.sh              # this script, leave it as it is
-        FILEPATH=/data/local/tmp        # Leave it as it is
-
-        # Connect to your device (adb is required, on the device: debugging=on)
-        adb connect $FIRESTICK
-
-        # Download the script, make it executable
-        adb push $SCRIPT $FILEPATH/ && \
-        adb shell chmod 755 $FILEPATH/$SCRIPT
-
-        # If you want to manually test it just:
-        #     "adb shell $FILEPATH/$SCRIPT"
-    ```
-4. **Add your DHCP hook**, there's a provided example for dnsmasq, see
-[examples directory](examples/) for details.
-5. **Set a dhcp lease and reload**, a reserved lease for your devices might help you with a lean
-action-hook. Reload your service once done.
-6. **Install Launcher**. [Wolf Launcher](https://www.google.com/search?q=wolf+launcher).
-Customize it according to your needs.
-7. **Install Launcher Toggler application** (opt). 
-[Launcher Toggler apk available](https://github.com/andreabenini/android/blob/main/projects/adbLauncherToggler/app/release/app-release.apk).
-That's the silliest application ever written !  
-Exactly _1_ Line added in the Activity log, if you want to evaluate sources or recompile it feel free to do so. 
-[Sources](https://github.com/andreabenini/android/blob/main/projects/adbLauncherToggler) are available
-5. **Reboot your Firestick** and watch the magic happen!
 
 ---
 ## Free your Firestick. Reclaim your screen.
