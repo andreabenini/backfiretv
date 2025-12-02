@@ -1,2 +1,5 @@
 # Personal or local customizations
 custom/
+
+# Personal virtualenv
+activate.sh
