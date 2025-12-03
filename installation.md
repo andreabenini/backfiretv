@@ -24,6 +24,7 @@ let's keep it short, it's really not a big deal.
 ## Configuration part (optional)
 It's possible to configure the script and its header section was exactly made for it
 
+
 ### Debugging
 Debugging logs are disabled by default, feel free to uncomment the line and declare the `$DEBUG`
 variable. It's nice to enable it if you are mapping a new button not listed yet and you want
@@ -38,7 +39,7 @@ adb shell
 adb shell /data/local/tmp/backfire.sh
 ```
 It's not a good idea to change the logfile path [`$LOG_FILE`], in that partition
-it's usually possible to write files when needed, logs will be cleared on boot.
+it's usually possible to write files when needed, logs will be cleared on each boot.
 
 ### Buttons Remapping
 - The top part of the script contains `Physical buttons remapping` section where you can change
