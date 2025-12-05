@@ -68,6 +68,8 @@ When it's free I'm fine with Ads. If I'm paying for it (as I did) I'll do whatev
 That's what happens automatically at boot without human intervention
 ![Logo](img.comparison.png)
 
+<!-- https://github.com/user-attachments/assets/f455bbce-9124-4ff4-8ed7-c15988a699c8 -->
+
 ### How It Works
 BackFireTV uses a simple but powerful automated workflow. At its core, it's a "set-and-forget"
 system that ensures your Firestick is always configured the way *you* want it, every time it
