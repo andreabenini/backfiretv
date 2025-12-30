@@ -69,8 +69,11 @@ for host in "${firestick_devices[@]}"; do
         echo " [started]" >> $LOG_FILE
         adb connect $host >/dev/null
         adb shell "nohup sh /data/local/tmp/backfire.sh >/dev/null 2>&1 &"
+        adb disconnect $host
     fi
 done
+adb kill-server
+
 # Prune log file to keep just last 100 lines
 tail -n 100 $LOG_FILE > ${LOG_FILE}.tmp && mv ${LOG_FILE}.tmp $LOG_FILE
 
