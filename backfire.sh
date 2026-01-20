@@ -25,7 +25,7 @@ BUTTON_RECENTS=""
 STRING_TOGGLER_LAUNCER="TOGGLER_LAUNCHER_EVENT"
 STRING_AMAZON_LAUNCHER="Start proc.*$AMAZON_LAUNCHER"
 debug() {
-    if [[ -v DEBUG ]]; then
+    if [ -n "${DEBUG-}" ]; then
         DATE=$(date +%H:%m:%S)
         echo -e "\e[32m[debug] $DATE $1\e[0m"
         echo "$DATE $1" >> $LOG_FILE
