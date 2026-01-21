@@ -25,6 +25,13 @@ let's keep it short, it's really not a big deal.
 It's possible to configure the script and its header section was exactly made for it
 
 
+## Disable other device features (optional)
+Feel free to follow some advices or follow guide from 
+[Firestick hacks](https://github.com/andreabenini/linux.tips/blob/main/android/firestick.amazon.md)
+to turn off automatic powersaving or other annoying features usually provided with defauly values 
+or enable usb storage back on older devices
+
+
 ### Debugging
 Debugging logs are disabled by default, feel free to uncomment the line and declare the `$DEBUG`
 variable. It's nice to enable it if you are mapping a new button not listed yet and you want
