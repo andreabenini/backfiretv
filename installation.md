@@ -1,28 +1,12 @@
 # Script installation procedure
 let's keep it short, it's really not a big deal.  
-- Android ADB (Android Debug Bridge) tools are required to perform this operation
-- Execute commands listed below or create a simple script as I did:
-```sh
-    # your firestick, the script, firestick remote path
-    FIRESTICK=yourDevice            # IP address or name of the firestick, up to you
-
-    SCRIPT=backfire.sh              # script name, LEAVE IT AS IT IS
-    FILEPATH=/data/local/tmp        # Installation path on FirestickTV, LEAVE IT AS IT IS.
-
-    # Connect to your device (adb is required, setting on the device: debugging=on)
-    adb connect $FIRESTICK
-
-    # Download the script, make it executable
-    adb push $SCRIPT $FILEPATH/             && \
-    adb shell chmod 755 $FILEPATH/$SCRIPT
-
-    # If you want to manually start it just for testing:
-    #     "adb shell $FILEPATH/$SCRIPT"
-```
+- Android ADB (Android Debug Bridge) tools are required to perform this operation.
+- Use [install.sh](install.sh) script or use it as a reference to basically copy and
+  make the script `backfire.sh` executable on the Firestick side.
 
 
 ## Configuration part (optional)
-It's possible to configure the script and its header section was exactly made for it
+It's possible to configure the script `backfire.sh` and its header section was exactly made for it.
 
 
 ## Disable other device features (optional)
