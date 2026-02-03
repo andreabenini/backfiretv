@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # @description      dnsmasq lease hook action
 #                   Started on every dhcp lease, it's used for sending initial event to the firestick
@@ -18,10 +18,14 @@
 #                       $2 = MAC address
 #                       $3 = IP address
 #                       $4 = Hostname (if available)
+#                       $5 = true (OPT) don't sleep, access it immediately
+#                            Parameter not provided by dnsmasq, you can use it on cli
+#                                to avoid sleeping because you're running it manually
 ACTION=$1
 MAC=$2
 IP=$3
 HOSTNAME=$4
+NOWAIT=$5
 declare -A firestick_delay
 
 
@@ -48,7 +52,7 @@ TIMESTAMP=$(date)
 
 # Initial requirements checks
 for tool in "${required_tools[@]}"; do
-    if [ "$(which $tool 2>/dev/null)" == "" ]; then
+    if [[ -z "$(which $tool 2>/dev/null)" ]]; then
         echo "ERROR: Aborting script, required tool: '$tool' not found"
         exit 1
     fi
@@ -58,13 +62,16 @@ echo "> $TIMESTAMP  [$ACTION]  $MAC -> $IP [$HOSTNAME]" >> $LOG_FILE
 
 # working on firestick devices
 for host in "${firestick_devices[@]}"; do
-    if [ "$host" == "$HOSTNAME" ] && [ "$ACTION" != "del" ]; then
+    if [[ "$host" == "$HOSTNAME" && "$ACTION" != "del" ]]; then
         # [add] renewed lease, [old] updated lease.  Sideloading launcher injection
         eval "host_delay=\"\$firestick_delay_${host}\""
-        if [ "$host_delay" = "" ]; then
+        if [[ -z "$host_delay" ]]; then
             host_delay=$firestick_delayDefault
         fi
         echo -n ">                                      Firestick TV detected, hacking it with custom launcher (delay:$host_delay)" >> $LOG_FILE
+        if [[ -z "$NOWAIT" ]]; then
+            sleep $host_delay
+        fi
         sleep $host_delay
         echo " [started]" >> $LOG_FILE
         adb connect $host >/dev/null
